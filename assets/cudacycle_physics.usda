@@ -1,0 +1,48 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    upAxis = "Y"
+    doc = "ovphysx ride proxy — wheel on rail, not the visual campus."
+)
+
+def Xform "World"
+{
+    def PhysicsScene "PhysicsScene"
+    {
+        vector3f physics:gravityDirection = (0, -1, 0)
+        float physics:gravityMagnitude = 9.81
+    }
+
+    def Cube "Rail" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        double size = 1
+        bool physics:collisionEnabled = 1
+        float3 xformOp:scale = (6, 0.16, 1.2)
+        double3 xformOp:translate = (0, -0.08, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Xform "Wheel" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        bool physics:rigidBodyEnabled = 1
+        float physics:mass = 18
+        bool physxRigidBody:disableGravity = 1
+        double3 xformOp:translate = (0, 0.32, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+
+        def Cylinder "Collider" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            double height = 0.18
+            double radius = 0.32
+            uniform token axis = "Z"
+            bool physics:collisionEnabled = 1
+        }
+    }
+}
