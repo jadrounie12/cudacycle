@@ -1,0 +1,19 @@
+.DS_Store
+*.usd.user
+*.usd.lock
+*.tsbuildinfo
+ui/node_modules
+ui/dist
+ui/.vite
+.venv
+.venv-physx
+
+# Local only. Hero film, score, VO, and reference footage stay on disk.
+inspo/
+preview/
+*.mp4
+*.mov
+*.wav
+*.mp3
+
+scripts/build_visual_usda.py
